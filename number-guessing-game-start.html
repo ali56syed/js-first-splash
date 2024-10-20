@@ -72,27 +72,24 @@
         const userGuess = Number(guessField.value);
         guessCounterNum--;
         if (guessCount === 1){
-          guesses.textContent = "Previous guesses:";
+          guesses.textContent = "Previous guesses:";   
         }
-        guessCounter.textContent = `Number of tries remaining: ${guessCounterNum}`;
-        guesses.textContent  = `${guesses.textContent} ${userGuess}`
-
         if (userGuess === randomNumber){
+          guesses.innerHTML = `${guesses.innerHTML} <span style="color:green">${userGuess}</span>`;
+          guessCounter.textContent = `Congratulations!`
           lastResult.textContent = "Congratulations! You got it right!";
           lastResult.style.backgroundColor = "green";
           numberOfTries.textContent = `Number of tries it took to win: ${guessCount}`;
           lowOrHi.textContent = "";
-          const winningSentence = document.querySelector(".guesses");
-          let text = winningSentence.textContent;
-          let words = text.split(" ");
-          words[words.length-1] = `<span style="color:green, backgroundColor:yellow">${words.length-1}</span>`;
-          winningSentence.innerHTML = words.join(" ");
           setGameOver();
-        }else if (guessCount === 10){
+        }
+        else if (guessCount === 10){
           lastResult.textContent = "Game over!";
           lowOrHi.textContent = "";
           setGameOver();
         } else {
+          guessCounter.textContent = `Number of tries remaining: ${guessCounterNum}`;
+          guesses.textContent  = `${guesses.textContent} ${userGuess}`
           lastResult.textContent = "Wrong";
           lastResult.style.backgroundColor = "red";
           if (userGuess < randomNumber){
@@ -135,6 +132,7 @@
         lastResult.style.backgroundColor = "white";
 
         randomNumber = Math.floor(Math.random() * 100) + 1;
+        console.log(randomNumber)
       }
 
       guessSubmit.addEventListener("click", checkGuess);
